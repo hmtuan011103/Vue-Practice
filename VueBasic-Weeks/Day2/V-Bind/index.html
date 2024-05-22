@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day2 V-Bind</title>
+    <style>
+      .className {
+        background-color: #000000;
+      }
+      .myClass {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+
+      Chúng ta có thể truy cập nó từ thẻ <div id="app"> bằng {{}} hoặc lệnh v-bind 
+
+      - Cú pháp:
+
+          <div v-bind:[attribute]="[Vue data property]"> 
+
+          </div>
+
+      - Example: 
+          <img v-bind:src="url" > 
+          
+          or 
+
+          <img :src="url" >
+
+    -->
+
+    <div id="app">
+
+
+      <!-- Bind style -->
+
+      <!-- Thiết lập style trực tiếp trong thẻ của Vue -->
+      <!-- Chúng ta có thể viết thuộc tính của CSS theo 2 kiểu -->
+      <!-- Kiểu lạc đà frontSize hoặc kiểu kebab-case kiểu 'font-size' -->
+      <!-- Lưu ý: Viết kiểu kebab thì phải ở trong ngoặc nháy đơn -->
+
+
+      <div v-bind:style="{ fontSize: size + 'px'}">
+          Hello World
+      </div>
+      <div :style="{ backgroundColor: isTmportant ? 'red' : 'yellow'}">
+          Say Hi
+      </div>
+
+      <!-- Bind style -->
+
+
+      <!-- ----------------------------------------- -->
+
+      <!-- Bind class -->
+
+      <div :class="className">
+        The class is set with Vue
+      </div>
+
+
+      <!-- Giá trị của v-bind:class cũng có thể là một object -->
+      <!-- Class name sẽ chỉ có hiệu lực nếu nó được đặt thành true -->
+      <div :class="{ myClass: true }">
+        The class is set conditionally to change the background color
+      </div>
+
+      <!-- Class name phụ thuộc vào Vue property -->
+      <div :class="{ myClass: isTmportant }">
+        The class is set conditionally to change the background color second
+      </div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

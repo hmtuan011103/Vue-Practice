@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Watchers</title>
+    <style>
+      #app {
+      border: dashed black 1px;
+      display: inline-block;
+      padding: 10px;
+    }
+    #app > div {
+      width: 200px;
+      height: 50px;
+      border: solid black 1px;
+      background-color: lightgreen;
+    }
+    #app > p {
+      font-size: large;
+      font-weight: bold;
+      text-align: center;
+    }
+    .valid {
+      color: green;
+    }
+    .invalid {
+      color: red;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Watchers</h1>
+
+    <!-- KHÁI NIỆM -->
+
+    <!--
+
+      => Là 1 method theo dõi thuộc tính dữ liệu có cùng tên
+
+      => Chạy mỗi khi data property value thay đổi
+
+      => Sử dụng Watchers nếu một giá trị thuộc tính dữ liệu nhất định yêu cầu một hành động
+
+      The Watcher Concept
+
+        + The new property value is always available as an input argument to the watcher method, and so is the old value
+
+      So sánh Watcher với methods
+
+        => Cả hai cùng được viết dưới dạng functions, nhưng có 1 số khác biệt sau:
+          + methods được gọi từ HTMl
+          + methods thường được gọi khi một sự kiện xảy ra
+          + methods tự động nhận đối tượng sự kiện làm đầu vào
+          + Chúng ta có thể gửi giá trị khác mà chúng ta chọn làm đầu vào cho một phương thức
+          + watchers chỉ được gọi khi giá trị thuộc tính dữ liệu đã xem thay đổi và điều này xảy ra tự động
+          + watchers tự động nhận giá trị mới và giá trị cũ từ watched property ( thuộc tính đã xem)
+          + Chúng ta không thể gửi bất kì giá trị nào khác làm đầu vào cho watcher
+
+      So sánh Watcher với methods
+
+        => Watcher and computed properties cùng được viết dưới dạng functions
+        => Watcher and computed properties cùng được gọi tự động khi phụ thuộc thay đổi và không bao giờ gọi từ HTML
+
+        => Khác biệt: 
+          + Watchers chỉ phụ thuộc vào 1 thuộc tính, thuộc tính mà họ thiết lập để theo dõi (watch)
+          + Computed properties phụ thuộc vào nhiều thuộc tính
+          + Computed properties được sử dụng như các data properties, except (Ngoại trừ) chúng là thuộc tính động
+          + Watcher không được tham chiếu từ HTML
+    -->
+
+    <div id="app">
+
+
+      <input type="range" min="0" max="100" step="1" v-model="rangeVal">
+      <p><code>{{ rangeVal }}</code></p> 
+
+      <div v-on:click="updatePos"></div>
+      <p><code>{{ xDiff }}</code></p> 
+
+
+      <label>
+        <p>Type a valid e-mail address:</p>
+        <input type="email" v-model="inpAddress">
+      </label>
+      <p :class="myClass"><code>{{ feedbackText }}</code></p> 
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

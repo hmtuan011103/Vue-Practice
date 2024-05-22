@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day2 Event Modifier</title>
+  </head>
+  <body>
+    <!-- 
+
+      Khái niệm trừu tượng quan trọng cần nắm vững
+
+      Event modifiers -> Công cụ sửa đổi sự kiện
+
+      =>
+        + Modify ( sửa đổi ) cách các sự kiện kích hoạt việc chạy các phương thức
+        + Giúp xử lý các sự kiện theo cách hiệu quả và đơn giản hơn
+
+        + Modify how events trigger the running of method
+        + Help us handle events in a more efficient and straightforward way.
+
+
+      Event modifiers are used together with the Vue v-on directive, to for example:
+        + Prevent the default submit behavior of HTML forms (v-on:submit.prevent)
+        + Make sure that an event can only run once after the page is loaded (v-on:click.once)
+        + Specify what keyboard key to use as an event to run a method (v-on:keyup.enter)
+
+    -->
+    <h1>Event Modifier</h1>
+    <div id="app">
+
+
+      <button @click.once="createAlert" >Click here</button>
+      <!-- Như trên là chúng ta đã Event Clik modify using @:click.once  -->
+
+      <div style="padding-top: 20px;">
+        <!-- Sự kiện nhấn phím shift-->
+        <p>Try pressing shift:</p>
+        <input type="text" @keydown.shift="getKey">
+        <p>{{ keyValue }}</p>
+      </div>
+
+      <div style="padding-top: 20px;">
+        <p>Try pressing the 's' key:</p>
+        <input type="text" @keydown.s="createAlert">
+        <!-- Kết hợp là khi nhấn tổ hợp phím Ctrl + S thì mới gọi sự kiện -->
+      </div>
+
+      <div style="padding-top: 20px;">
+        <p>Try pressing the 'ctrl + s' key:</p>
+        <input type="text" @keydown.ctrl.s="createAlert">
+        <!-- Kết hợp là khi nhấn tổ hợp phím Ctrl + S thì mới gọi sự kiện -->
+        <!-- Combine ( Kết hợp ) Keyboard Event Modifiers -->
+      </div>
+
+      <div v-on:click.left="createAlert"
+          style="padding-top: 20px;"
+          >
+        <p>Press right mouse button here.</p>
+      </div>
+
+      <!-- Mouse button events can also work in combination with a system modifier key. -->
+
+      <!--
+        Sự kiện bấm nút chuột cũng có thể kết hợp với tổ hợp phím
+        VD: 
+          + @click.right.ctrl là nhấn ctrl xong right click là kích hoạt sự kiện
+          + @click.right.prevent ngăn chặn hành động mặc định khi chuột phải lên của trình duyệt
+      -->
+
+      <p @click.ctrl.right.prevent="changeNumber">Change Number</p>
+      <p>{{ number }}</p>
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

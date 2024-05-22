@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day2 Form</title>
+  </head>
+  <body>
+
+    <!-- 
+
+      Vue sử dụng v-model directive khi xử lý form
+
+      v-model cung cấp ràng buộc 2 chiều ( two-way binding )
+
+      => v-model cập nhật Vue instance khi input HTML thay đổi
+
+      => v-model cũng cập nhật input HTML khi Vue instance thay đổi 
+
+    -->
+
+    <h1>Form</h1>
+    <div id="app">
+      <form @submit.prevent="addItem">
+        <p>Add item</p>
+        <p>
+          Item name:
+          <input type="text" required v-model="itemName">
+        </p>
+        <p>
+          How many: 
+          <input type="number" v-model="itemNumber">
+        </p>
+        <button type="submit">Add item</button>
+      </form>
+      <p>Shopping list:</p>
+      <ul>
+        <li v-for="item in shoppingList">
+          {{ item.name}}, {{ item.number}}
+        </li>
+      </ul>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

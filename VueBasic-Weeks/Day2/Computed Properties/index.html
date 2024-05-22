@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Computed Properties</title>
+  </head>
+  <body>
+    <h1>Computed Properties</h1>
+
+    <!-- KHÁI NIỆM -->
+
+    <!-- 
+
+      => Như data properties, Ngoại trừ chúng phụ thuộc vào các other properties
+
+      => Được viết như một methods, nhưng nó không chấp nhận bất kì input argutments nào
+
+      => Được tự động cập nhật khi 1 phần phụ thuộc thay đổi. Trong khi các phương thức được gọi khi có điều gì đó xảy ra, chẳng hạn như xử lý sự kiện
+
+      => Được sử dụng khi đầu ra phụ thuộc vào thứ khác
+
+      => Computed properties are Dynamic -> This is big advantage
+
+      => Có nghĩa là nó thay đổi tùy thuộc vào giá trị của một hoặc nhiều data properties
+
+      So sánh computed properties với methods
+
+      => Cả 2 đều được viết dưới dạng như một functions, nhưng chúng khác nhau
+
+        + Methods chạy khi gọi từ HTML, nhưng Computed properties được tự động cập nhật khi 1 phần phụ thuộc thay đổi
+
+        + Computed properties được sử dụng giống Data properties, nhưng chúng dynamic
+
+    -->
+    <div id="app">
+      <form>
+        <p>
+          Important item?
+          <label>
+             <input type="checkbox" v-model="chbxVal"> 
+             {{ isImportant }}
+          </label>
+        </p>
+      </form>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

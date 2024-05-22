@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day2 V-For</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(x, index) in manyFoods">
+          {{ index + ": " +  x }}
+        </li>
+      </ul>
+      <div>
+        <img  v-for="x in manyFoods" v-bind:src="x" alt="">
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+
+  </body>
+</html>

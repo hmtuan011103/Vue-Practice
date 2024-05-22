@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day2 V-model Try</title>
+  </head>
+  <body>
+    <h1>Form Try</h1>
+    <div id="app">
+        <form @submit.prevent="addItem">
+          <p>
+            <h4>Order here:</h4>
+            <label>
+              <input type="radio" required value="Dinner" v-model="itemType" name="rbgType">Dinner
+            </label><br>
+            <label>
+              <input type="radio" required value="Drink" v-model="itemType" name="rbgType">Drink
+            </label><br>
+            <label>
+              <input type="radio" required value="Dessert" v-model="itemType" name="rbgType">Dessert
+            </label>
+          </p>
+          <p v-show="itemType">
+            <label>
+              <select required v-model="itemName" @change="newUrl">
+                <option value="" selected disabled>Select item</option>
+                <option v-for="item in preDefItems" :value="item.name" v-show="item.type === itemType" :data-url="item.name">
+                  {{ item.name }}
+                </option>
+              </select>
+            </label>
+          </p>
+          <p v-show="itemName">
+            <input type="number" placeholder="How many?" v-model="itemNumber" required>
+          </p>
+          <button type="submit">Order</button>
+        </form>
+
+        <div>
+          <h4>Your order:</h4>
+          <ul id="ulToFind">
+            <li v-for="item in order">
+                {{ item.name }}, {{ item.number}}
+            </li>
+          </ul>
+      
+          </ul>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

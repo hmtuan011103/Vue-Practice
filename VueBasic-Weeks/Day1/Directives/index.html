@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day1 Vue Directives</title>
+    <style>
+      .pinkBg {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+      Directives (chỉ thị - câu lệnh) là 1 thuộc tính HTML đặc biệt có tiền tố v-
+      => Cung cấp thêm chức năng cho thẻ HTML 
+      => Kết nối với Vue để tạo dynamic and reactive user interfaces
+    -->
+
+     <!-- 
+      => v-bind: Connects 1 attribute trong HTML tag với 1 data variable trong Vue
+
+      Note: v-bind còn có cách viết tắt thay vì v-bind:class => :class
+
+      2 cách viết trên như nhau cách viết ( :class được gọi là directive shorthand => viết tắt chỉ thị )
+
+      => v-if: Creates HTML tag tùy theo điều kiện. Directives v-else-if và v-else cùng được sử dụng với v-if directives
+
+      => v-show: Specifies ( Chỉ định ) xem một phần tử HTML có hiển thị ( visible ) hay không tùy thuộc vào 1 điều kiện
+
+      => v-for: Creates danh sách các thẻ dựa trên 1 mảng trong phiên bản Vue bằng vòng lặp for
+      ------------
+      Creates a list of tags based on an array in the Vue instance using a for-loop.
+
+
+      => v-on: Connects an event on an HTML tag với Javascript expression or Vua instance method, Chúng ta có thể định nghĩa cụ thể hơn cách 1 page sẽ react với một sự kiện nhất định bằng cách using event-modifiers
+
+      Note: v-on còn có cách viết tắt thay vì v-on => @
+      2 cách viết trên như nhau cách viết ( @ được gọi là directive shorthand => viết tắt chỉ thị )
+      
+
+      => v-model: Được sử dụng trong các thẻ HTML forms with tags like <form>, <input>, <button>. Tạo liên kết 2 chiều ( two way binding ) giữa phần tử đầu vào và 1 thuộc tính dữ liệu phiên bản Vue.
+    -->
+
+
+    <div id="app">
+      <div :class="vueClass">
+        {{ message }}
+        {{ 'Random number: ' + Math.ceil(Math.random() * 6)}}
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

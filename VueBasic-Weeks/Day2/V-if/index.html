@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day2 V-If</title>
+  </head>
+  <body>
+
+    <!-- 
+      Conditional rendering in Vue is done
+      by using the v-if, v-else-if and v-else directives. 
+    -->
+
+    <!-- 
+      The v-show directive hides an element when the condition is 'false' 
+      by setting the CSS 'display' property value to 'none'. 
+    -->
+
+    <div id="app">
+
+      <p v-if="text.includes('pizza')">The text includes the word 'pizza'</p>
+      <p v-else>The word 'pizza' is not found in the text</p>
+
+      <div v-show="showDiv">This div tag can be hidden</div>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+
+  </body>
+</html>

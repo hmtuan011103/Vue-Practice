@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day2 V-model</title>
+    <style>
+      .item {
+        background-color: red;
+      }
+      .notFound {
+        background-color: yellow;
+      }
+
+      .found {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- 
+      v-model tạo 1 đường dẫn giữa value attribute của input element với giá trị dữ liệu trong vue instance.
+
+      Khi bạn thay đổi input => dữ liệu thay đổi 
+      Khi dữ liệu thay đổi thì input cũng thay đổi
+
+      => Đây gọi là two-way binding
+      
+      
+      Two-way binding là gì: Ràng buộc hai chiều hay là Liên kết hai chiều
+        + Được hiểu là form input thay đổi Vue data instance và khi thay đổi Vue instance data thì update input
+
+      => Chốt lại thì tức là khi 1 vue input model thay đổi thì Vue data instance của nó cũng thay đổi theo và ngược lại
+
+     -->
+
+    <h1>V-model</h1>
+    <div id="app">
+      <input type="text" v-model="inpText">
+      <p> {{ inpText }} </p>
+
+
+      <input type="text" :value="valueForm" @input="inputForm($event)">
+      <p> {{ valueForm }} </p>
+
+      <!-- v-model thực ra có thể hiểu nó là sự kết hợp của :value và @input -->
+
+      <!-- Hai ví dụ trên cho ra 2 kết quả giống nhau -->
+
+
+      <form v-on:submit.prevent="addItem">
+        <p>Add item</p>
+        <p>Item name: <input type="text" required v-model="itemName"></p>
+        <p>How many: <input type="number" v-model="itemNumber"></p>
+        <p>
+          Important?
+          <label>
+            <input type="checkbox" v-model="itemImportant">
+            {{ itemImportant }}
+          </label>
+        </p>
+        <button type="submit">Add item</button>
+      </form>
+
+      <hr>
+      <p>Shopping list:</p>
+      <ul class="found">
+        <li v-for="item in shoppingList" 
+          :class="{item: item.important}"
+          v-show="!item.found"
+          @click="item.found = !item.found"
+
+        >
+          {{item.name}}, {{item.number}}
+        </li>
+      </ul>
+
+      <ul class="notFound">
+        <li v-for="item in shoppingList" 
+          :class="{item: item.important}"
+          v-show="item.found"
+          @click="item.found = !item.found"
+        >
+          {{item.name}}, {{item.number}}
+        </li>
+      </ul>
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

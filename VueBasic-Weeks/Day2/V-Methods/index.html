@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day2 V-Methods</title>
+  </head>
+  <body>
+    <!-- 
+      
+      Các phương thức trong Vue nằm trong trong method property
+
+      Vue methods are function that belong to the Vue instance under the methods property
+
+     -->
+    <h1>V-Methods</h1>
+    <div id="app">
+      <div @:click="writeText" 
+          style="width: 100px; height: 100px; background-color: red;"
+      >
+        {{ text }}
+      </div>
+
+      <div @:mousemove="mousePos" 
+      :style="{ width: '100px', height: '100px', backgroundColor: 'hsl(' + xPos +  ', 60%, 60%)' }"
+      >
+        xPos: {{ xPos }} <br>
+        yPos: {{ yPos }}
+      </div>
+      
+      <textarea @:input="writeText($event, 5)" placeholder="Start write..." >
+
+      </textarea>
+
+
+      <p>{{ "Moose count: " + count }}</p>
+      <button @:click="addMoose(1)">+1</button>
+      <button @:click="addMoose(5)">+5</button>
+      <button @:click="addMoose(-1)">-1</button>
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
