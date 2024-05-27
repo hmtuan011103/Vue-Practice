@@ -3,5 +3,5 @@ import App from './App.vue'
 import FoodItem from './components/FoodItem.vue'
 
 const app = createApp(App);
-app.mount('#app');
 app.component('food-item', FoodItem);
+app.mount('#app');
