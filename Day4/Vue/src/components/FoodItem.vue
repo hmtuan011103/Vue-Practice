@@ -1,8 +1,6 @@
 <template>
     <div>
-        <h2>{{ name }}</h2>
         <p v-show="foodIsFavorite">LIKE</p>
-        <p>{{ message }}</p>
         <h5>{{ foodName }}</h5>
         <h5>{{ foodDesc }}</h5>
         <p id="red" @click="countClicks">You have clicked me {{ clicks }} times.</p>
@@ -40,8 +38,6 @@
         },
         data() {
             return {
-                name: 'Apples',
-                message: 'I like apples',
                 clicks: 0,
                 foodIsFavorite: this.isFavorite
             }

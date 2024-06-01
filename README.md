@@ -75,11 +75,25 @@
 # Khi 1 component được tạo trong phần tử cha, chúng ta không được phép thay đổi giá trị của prop nhận được trong phần tử con.
 # Vì vậy bên trong FoodItem.Vue, chúng ta không thể thay đổi giá trị của prop 'isFavorite' mà chúng ta nhận được từ App.vue. Prop ở chế độ chỉ đọc từ parent, đó là App.vue trong trường hợp của chúng tôi
 
-
-
-
 # ------- PROP - DEFINE -------
 # --------------------------------
 
 
+
+# --------------------------------
+# ------- VUE - V-FOR - COMPONENTS -------
+
+# DEFINE
+# Components can be reused with v-for to generate many elements of the same kind
+# => Components có thể được tái sử dụng với v-for để tạo ra nhiều element cùng loại
+
+# When generating elements with v-for from a component, it is also very helpful that props can be assigned dynamically based on values from an array.
+# => Khi tạo các element bằng v-for từ 1 component, cũng rất hữu ích khi các props có thể được gán tự động dựa trên các giá trị từ một mảng
+
+# ------- VUE - V-FOR - COMPONENTS -------
+# KEY - ATTRIBUTE
+# => Khi dùng v-for để lặp các phần tử, Vue tái sử dụng các phần tử DOM để tối ưu hóa hiệu suất
+# => Nếu mảng dữ liệu thay đổi, Vue có thể tái sử dụng các phần tử không đúng cách nếu không có thuộc tính 'key'
+# => Key giúp Vue phân biệt các phần tử một cách chính xác bằng cách cung cấp một định danh duy nhất
+# --------------------------------
 
