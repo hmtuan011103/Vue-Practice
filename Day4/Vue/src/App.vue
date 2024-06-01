@@ -2,6 +2,7 @@
   <h1>Hello World!</h1>
   <h1>{{ message }}</h1>
 
+  <button @click="removeItem">Remove Item</button>
   <food-item 
     v-for="x in foods"
     :key="x.name"
@@ -10,13 +11,26 @@
     :is-favorite="x.favorite"
     @toggle-favorite="receiveEmit"
   />
-  <button @click="removeItem">Remove Item</button>
+
+  <ul>
+    <todo-item 
+      v-for="x in items"
+      :key="x"
+      :item-name="x"
+      style="background-color: lightgreen;"
+    />
+  </ul>
+  <input type="text" v-model="newItem">
+  <button @click="addItem">Add</button>
+ 
 </template>
 
 <script>
   export default {
     data() {
       return {
+        newItem: '',
+        items: ['Buy apples','Make pizza','Mow the lawn'],
         message: 'This is some text',
         foods: [
           { 
@@ -55,6 +69,10 @@
           food => food.name === foodName
         )
         foundFood.favorite = !foundFood.favorite;
+      },
+      addItem() {
+        this.items.push(this.newItem);
+        this.newItem = '';
       }
     }
   }

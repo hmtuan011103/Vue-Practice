@@ -117,3 +117,14 @@
 
 # --------------------------------
 
+
+# --------------------------------
+# ------- VUE FALLTHROUGH ATTRIBUTES -------
+# Khi bạn định nghĩa một component, bạn có thể truyền các thuộc tính không được định nghĩa rõ ràng trong props của component con.
+# Những thuộc tính này được gọi là "fallthrough attributes" và sẽ tự động được truyền từ component cha xuống các phần tử gốc trong template của component con.
+
+
+# Typical attributes được sử dụng để fall through are class, style and v-on (@)
+
+# --------------------------------
+
