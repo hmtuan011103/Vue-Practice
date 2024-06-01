@@ -8,6 +8,7 @@
     :food-name="x.name"
     :food-desc="x.desc"
     :is-favorite="x.favorite"
+    @toggle-favorite="receiveEmit"
   />
   <button @click="removeItem">Remove Item</button>
 </template>
@@ -48,6 +49,12 @@
     methods: {
       removeItem() {
         this.foods.splice(1,1);
+      },
+      receiveEmit(foodName) {
+        const foundFood = this.foods.find(
+          food => food.name === foodName
+        )
+        foundFood.favorite = !foundFood.favorite;
       }
     }
   }

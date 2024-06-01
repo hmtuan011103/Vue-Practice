@@ -75,7 +75,6 @@
 # Khi 1 component được tạo trong phần tử cha, chúng ta không được phép thay đổi giá trị của prop nhận được trong phần tử con.
 # Vì vậy bên trong FoodItem.Vue, chúng ta không thể thay đổi giá trị của prop 'isFavorite' mà chúng ta nhận được từ App.vue. Prop ở chế độ chỉ đọc từ parent, đó là App.vue trong trường hợp của chúng tôi
 
-# ------- PROP - DEFINE -------
 # --------------------------------
 
 
@@ -90,10 +89,31 @@
 # When generating elements with v-for from a component, it is also very helpful that props can be assigned dynamically based on values from an array.
 # => Khi tạo các element bằng v-for từ 1 component, cũng rất hữu ích khi các props có thể được gán tự động dựa trên các giá trị từ một mảng
 
-# ------- VUE - V-FOR - COMPONENTS -------
 # KEY - ATTRIBUTE
 # => Khi dùng v-for để lặp các phần tử, Vue tái sử dụng các phần tử DOM để tối ưu hóa hiệu suất
 # => Nếu mảng dữ liệu thay đổi, Vue có thể tái sử dụng các phần tử không đúng cách nếu không có thuộc tính 'key'
 # => Key giúp Vue phân biệt các phần tử một cách chính xác bằng cách cung cấp một định danh duy nhất
+# --------------------------------
+
+
+
+# --------------------------------
+# ------- VUE - $emit() - method -------
+
+# DEFINE
+# With built-in $emit() method in Vue we can create a custom event in the child component that can be captured in the parent element
+# => Với phương thức $emit() tich hợp trong Vue, chúng ta có thể tạo 1 event tùy chỉnh trong các component con có thể được ghi lại trong component cha
+
+# Props are used to send data from the parent element to be child component, and $emit() is used to do the oposite: to pass information from the child component to the parent.
+# => Props được sử dụng để gửi dữ liệu từ phần tử cha đến component con và $emit() được sử dụng để thực hiện điều ngược lại: Truyền thông tin từ component con đến component cha.
+
+# EMIT A CUSTOM EVENT
+# Cần gửi thông tin từ component cha và chúng tôi sử dụng $emit() để thực hiện điều đó
+
+# The EMITS OPTION
+# Tương tự như cách chúng ta khai báo props bên trong component con.
+# Chúng ta cũng có thể ghi lại ( ghi lại ở đây là có thể khai báo hoặc không ) các emits trong component bằng 'emits' option.
+# Việc ghi lại làm rõ ràng code hơn.
+
 # --------------------------------
 

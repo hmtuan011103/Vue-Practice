@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p v-show="foodIsFavorite">LIKE</p>
+        <p v-show="isFavorite">LIKE</p>
         <h5>{{ foodName }}</h5>
         <h5>{{ foodDesc }}</h5>
         <p id="red" @click="countClicks">You have clicked me {{ clicks }} times.</p>
@@ -36,6 +36,7 @@
                 default: false
             }
         },
+        emits: ['toggle-favorite'],
         data() {
             return {
                 clicks: 0,
@@ -47,7 +48,8 @@
                 this.clicks++;
             },
             toggleFavorite() {
-                this.foodIsFavorite = !this.foodIsFavorite;
+                this.$emit('toggle-favorite', this.foodName);
+                // this.foodIsFavorite = !this.foodIsFavorite;
             }
         },
     }
