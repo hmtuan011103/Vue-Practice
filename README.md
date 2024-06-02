@@ -138,7 +138,7 @@ Sử dụng scoped trong tag <style scroped></style>
 # --------------------------------
 
 # --------------------------------
-# ------- Local Components -------
+# ------- LOCAL COMPONENTS -------
 
 DEFINE
 Components can be made to be local, meaning that they are only accessiable inside a specific *.vue file
@@ -161,7 +161,76 @@ Kiểu trong component cần sử dụng 1 component khác thì ta có thể vi�
     }
 </script> -->
 
+export default không yêu cầu sử dụng dấu ngoặc nhọn khi import và có thể đặt tên bất kì
+export yêu cầu sử dụng dấu ngoặc nhọn và phải đúng tên hoặc tên được đổi.
 
+# --------------------------------
+
+
+
+# --------------------------------
+# ------- VUE SLOTS -------
+
+DEFINE
+Slots là 1 tính năng mạnh mẽ trong Vue cho phép các component linh hoạt hơn và có thể tái sử dụng hơn.
+=> Chúng ta sử dụng slots trong Vue để send content từ parent component vào <template></template> của child component
+<!-- <template>
+  <slot-comp>Hello World!</slot-comp>
+</template> -->
+<!-- Code trên trong parent component -->
+
+=> Để nhận được Hello World bên trong component và hiển thị nó trong trang của chúng ta
+=> Chúng ta cần sử dụng <slot></slot> bên trong component
+=> Slot đóng vai trò giữ chỗ cho nội dung, do đó sau khi ứng dụng được xây dựng, slot sẽ được thay thế bằng nội dung được gửi tới nó
+
+<!-- <template>
+  <div>  
+    <p>SlotComp.vue</p>
+    <slot></slot> Nội dung component từ cha sẽ hiển thị ở đây
+  </div>
+</template> -->
+<!-- Code trên trong child component -->
+
+
+SLOTS AS CARDS
+Slot cũng có thể được sử dụng để bao quanh các khối nội dung html động lớn hơn để có giao diện giống như card
+<!-- <template>
+  <h3>Slots in Vue</h3>  
+  <p>We create card-like div boxes from the foods array.</p>
+  <div id="wrapper">
+    <slot-comp v-for="x in foods">
+      <img v-bind:src="x.url">
+      <h4>{{x.name}}</h4>
+      <p>{{x.desc}}</p>
+    </slot-comp>
+  </div>
+</template> -->
+<!-- Code trên trong parent component -->
+
+
+<!-- <template>
+  <div> 
+    <slot></slot>
+  </div>
+</template>
+
+<script></script>
+
+<style scoped>
+  div {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    margin: 10px;
+  }
+</style> -->
+<!-- Code trên trong child component -->
+
+FALLBACK CONTENT (Nội dung dự phòng)
+Nếu 1 component được tạo mà không có nội dung, chúng ta có thể có fallback content trong <slot></slot>
+Kiểu như là vẫn là thẻ slot ở bên trong component con, nhưng lần này thẻ slot không giống mà là có giá trị
+Nếu gọi sử dụng child component bên trong parent component mà chỉ ghi mỗi tên component đó ra thôi
+Thì nó sẽ lấy nội dung trong thẻ slot của component con
+Ngược lại nếu ghi nội dung trong lần gọi compoent con ở component cha thì nội dung bên trong component con mặc dịnh sẽ bị thay thế
 
 # --------------------------------
 
