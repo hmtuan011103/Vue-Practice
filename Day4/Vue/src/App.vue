@@ -22,13 +22,21 @@
   </ul>
   <input type="text" v-model="newItem">
   <button @click="addItem">Add</button>
- 
+  <br>
+  <br>
+  <button @click="toggleValue = !toggleValue">Switch component</button>
+  <KeepAlive exclude="CompOne">
+    <component :is="activeComp"></component>
+  </KeepAlive>
 </template>
 
 <script>
+  import CompOne from './components/Dynamic/CompOne.vue'
+  import CompTwo from './components/Dynamic/CompTwo.vue'
   export default {
     data() {
       return {
+        toggleValue: true,
         newItem: '',
         items: ['Buy apples','Make pizza','Mow the lawn'],
         message: 'This is some text',
@@ -73,6 +81,15 @@
       addItem() {
         this.items.push(this.newItem);
         this.newItem = '';
+      }
+    },
+    components: {
+      'comp-one': CompOne,
+      'comp-two': CompTwo
+    },
+    computed: {
+      activeComp() {
+        return this.toggleValue ? 'comp-one' : 'comp-two';
       }
     }
   }

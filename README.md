@@ -395,3 +395,37 @@ Tương tự như name bên v-slot
 Alternatively, we can create the component one time, with two different "template" tags, each "template" tag referring to a different slot.
 
 # --------------------------------
+
+
+# --------------------------------
+# ------- SCOPED SLOTS -------
+
+DYNAMIC COMPONENTS
+Có thể được sử dụng để lướt qua các trang trong trang của bạn, như các tab trong trình duyệt của bạn, bằng cách sử dụng 'is' attribute
+
+THE COMPONENT TAG AND THE 'IS' ATTRIBUTE
+Để tạo 1 dynamic component chúng ta sử dụng <component></component> để thể hiện active component.
+'is' Attribute được gắn với một giá trị bằng v-bind, và chúng ta thay đổi giá trị đó thành tên của component mà chúng ta muốn active
+
+<!-- <component :is="activeComp"></component> -->
+
+<KeepAlive>
+Nếu có bất kì thao tác nào ở các component khi ta chuyển đổi lại giữa các component nó sẽ bị reset lại ban đầu
+Để giữ nguyên state (trạng thái), các thông tin đầu vào trước đó, khi bạn quay lại 1 component
+Chúng ta sử dụng thẻ <KeepAlive></KeepAlive> xung quanh thẻ <component></component>
+
+THE 'INCLUDE' AND 'EXCLUDE' attributes
+Tất cả component bên trong <KeepAlive></KeepAlive> sẽ được giữ nguyên theo mặc định.
+Nhưng chúng ta cũng có thể xác định chỉ một số component được duy trì bằng cách sử dụng 'include' hoặc 'exclude' trên <KeepAlive></KeepAlive>
+Nếu sử dụng include hoặc exclude trên thẻ KeepAlive, chúng ta cũng cần đặt tên cho các thành phần bằng 'name' option trong component con
+ <!-- <KeepAlive exclude="CompOne, CompTwo"> CompOne là option name được export default bên Component con CompOne
+    <component :is="activeComp"></component>
+  </KeepAlive> -->
+
+THE 'MAX' ATTRIBUTE
+Chúng ta sử dụng 'max' như một thuộc tính trong KeepAlive để giới hạn số lượng component mà trình duyệt cần nhớ trạng thái (state)
+<!-- <KeepAlive :max="2"> -->
+Ví dụ chúng ta chuyển đổi quá 2 component là nó sẽ quên state, nếu chúng ta chỉ chuyển qua lại 2 component trong 2 component thì nó vẫn giữ state
+
+
+# --------------------------------
