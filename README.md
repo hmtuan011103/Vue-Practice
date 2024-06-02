@@ -234,3 +234,70 @@ Ngược lại nếu ghi nội dung trong lần gọi compoent con ở component
 
 # --------------------------------
 
+
+
+# --------------------------------
+# ------- VUE V-SLOT -------
+
+DEFINE
+Chúng ta cần v-slot directive để tham chiếu đến named slots ( Kiểu slot đã được đặt tên )
+Named slots cho phép kiểm soát nhiều hơn vị trí đặt nội dung trong mẫu của component con
+Linh hoạt hơn và có thể tái sử dụng
+Nếu chỉ sử dụng slots mà không dùng v-slot với Named slot thì bên compoent con có bao nhiêu slot thì nó sẽ chỉ nhận 1 giá trị
+
+V-SLOTS AND NAMED SLOTS ( Sử dụng với nhiều slot trong 1 component )
+Nếu chúng ta có nhiều hơn 1 slot trong 1 component, nhưng muốn kiểm soát nội dung sẽ xuất hiện ở slot nào
+Chúng ta cần đặt tên cho các vị trí đó và sử dụng v-slot để gửi nội dung đến đúng nơi
+
+<!-- <h3>Component</h3>
+<div>
+  <slot name="topSlot"></slot>
+</div>
+<div>
+  <slot name="bottomSlot"></slot>
+</div> -->
+<!-- Code trên trong child component -->
+
+
+<!-- <h1>App.vue</h1>
+<p>The component has two div tags with one slot in each.</p>
+<slot-comp v-slot:bottomSlot>'Hello!'</slot-comp> -->
+<!-- Code trên trong parent component -->
+
+DEFAULT SLOTS
+Nếu bạn có 1 slot không có name thì slot đó sẽ dược mặc định cho các component được đánh dấu là v-slot:default hoặc không được đánh gấu bằng v-slot
+=> Kiểu như là nếu bên component con có 1 slot không được đặt tên thì khi gọi nó sang compoent cha.
+Thì nội dung trong thẻ component con không định nghĩa tên hoặc có v-slot:default sẽ mặc định cho cái thằng Slot không có tên bên component con.
+
+
+V-SLOT IN <TEMPLATE>
+v-slot cũng có thể được sử dụng trong thẻ template để hướng các content lớn hơn đến một slot nhất định
+<!-- <h1>App.vue</h1>
+<p>The component has two div tags with one slot in each.</p>
+<slot-comp>
+  <template v-slot:bottomSlot>
+    <h4>To the bottom slot!</h4>
+    <p>This p tag and the h4 tag above are directed to the bottom slot with the v-slot directive used on the template tag.</p>
+  </template>
+  <p>This goes into the default slot</p>
+</slot-comp> -->
+<!-- Code trên trong parent component -->
+
+<!-- <h3>Component</h3>
+<div>
+  <slot></slot>
+</div>
+<div>
+  <slot name="bottomSlot"></slot>
+</div> -->
+<!-- Code trên trong child component -->
+=> Chúng ta sử dụng thẻ template để hướng một số nội dung đến 1 slot nhất định vì thẻ template không được hiển thị, nó chỉ giữ chố cho nội dung
+
+V-SLOT SHORTHAND #
+Viết tắt của v-slot là #
+<!-- <slot-comp v-slot:topSlot>'Hello!'</slot-comp> -->
+Can be written as:
+<!-- <slot-comp #topSlot>'Hello!'</slot-comp> -->
+
+
+# --------------------------------
