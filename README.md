@@ -301,3 +301,97 @@ Can be written as:
 
 
 # --------------------------------
+
+
+# --------------------------------
+# ------- SCOPED SLOTS -------
+
+DEFINE 
+Scoped slot cung cấp dữ liệu cục bộ từ component con để component cha có thể chọn cách hiển thị dữ liệu đó
+
+SEND DATA TO PARENT
+Chúng ta sử dụng v-bind trong slot child component để gửi dữ liệu cục bộ đến component cha
+
+VD: 
+<!-- <template>
+  <slot v-bind:lclData="data"></slot>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        data: 'This is local data'
+      }
+    }
+  }
+</script> -->
+
+RECEIVE DATA FROM SCOPED SLOT
+Dữ liệu cục bộ trong component con được gửi với v-bind, và nó có thể được nhận trong component cha với v-slot (#)
+VD:
+<!-- <slot-comp v-slot:"dataFromSlot">
+  <h2>{{ dataFromSlot.lclData }}</h2>
+</slot-comp> -->
+
+SCOPED SLOT WITH AN ARRAY
+Có thể gửi dữ liệu từ 1 array bằng cách dùng v-for, nhưng code trong App.vue về cơ bản là giống nhau
+
+<!-- <template>
+  <slot
+    v-for="x in foods"
+    :key="x"
+    :foodName="x"
+  ></slot>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        foods: ['Apple','Pizza','Rice','Fish','Cake']
+      }
+    }
+  }
+</script> -->
+<!-- Code trên trong child component -->
+
+<!-- <slot-comp v-slot="food">
+  <h2>{{ food.foodName }}</h2>
+</slot-comp> -->
+<!-- Code trên trong parent component -->
+
+STATIC DATA FROM A SCOPED SLOT
+1 slot scoped cũng có thể gửi static data, Đó là dữ liệu không thuộc data property của Vue instance
+Khi gửi statix data, chúng ta không sử dụng v-bind
+Trong ví dụ bên dưới, chúng ta gửi 1 static text, và 1 text bound dymaically từ data instance.
+
+<!-- <template>
+  <slot
+    staticText="This text is static"
+    :dynamicText="text"
+  ></slot>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        text: 'This text is from the data property'
+      }
+    }
+  }
+</script> -->
+<!-- Code trên trong child component -->
+
+<!-- <slot-comp v-slot="texts"> => Cái texts ở đây là do mình tùy chọn đặt tên.
+  <h2>{{ texts.staticText }}</h2>
+  <p>{{ texts.dynamicText }}</p>
+</slot-comp> -->
+<!-- Code trên trong parent component -->
+
+NAMED SCOPED SLOTS
+Tương tự như name bên v-slot
+Alternatively, we can create the component one time, with two different "template" tags, each "template" tag referring to a different slot.
+
+# --------------------------------
