@@ -140,8 +140,28 @@ Sử dụng scoped trong tag <style scroped></style>
 # --------------------------------
 # ------- Local Components -------
 
-# DEFINE
-# 
+DEFINE
+Components can be made to be local, meaning that they are only accessiable inside a specific *.vue file
+Nghĩa là các component có thể được biến thành biến cục bộ, nghĩa là chúng chỉ có thể truy cập được bên trong một file *.vue cụ thể
+
+GLOBAL COMPONENTS
+Cách chúng ta đưa các component vào trong main.js, điều này giúp chúng ta có thể truy cập được bên trong <template></template> của tất cả cá tệp *.vue khác trong dự án đó.
+
+
+LOCAL COMPONENTS
+Chúng ta có thể đưa trực tiếp 1 component vào tag <script></script> thay vì đưa nó vào trong main.js
+Kiểu trong component cần sử dụng 1 component khác thì ta có thể viết
+<!-- <script>
+    import CompOne from './components/ComOne.vue'
+
+    export default {
+        components: {
+            'comp-one': CompOne
+        }
+    }
+</script> -->
+
+
 
 # --------------------------------
 
