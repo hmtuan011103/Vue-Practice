@@ -507,3 +507,86 @@ Ví dụ:
 } -->
 
 # --------------------------------
+
+
+# --------------------------------
+# ------- VUE TEMPLATE REFS -------
+
+DEFINE
+Được sử dụng để chỉ các phần tử DOM cụ thể
+Khi ref attribute được đặt vào 1 thẻ HTML, phần tử DOM thu được sẽ được thêm vào $refs object
+Chúng ta có thể sử dụng ref attribute và $ref object trong Vue để thay thế cho getElementById() hoặc querySelector()
+
+THE 'REF' ATTRIBUTE AND THE '$REFS' OBJECT
+Thẻ html với ref attribute sẽ được thêm vào $refs object và có thể được tìm kiếm sau đó trong thẻ script
+
+Ví dụ trực quan
+<!-- <template>
+  <h1>Example</h1>
+  <p>Click the button to put "Hello!" as the text in the green p element.</p>
+  <button @click="changeVal">Change Text</button>
+  <p ref="pEl">This is the initial text</p>
+</template>
+
+<script>
+  export default {
+    methods: {
+      changeVal() {
+        this.$refs.pEl.innerHTML = "Hello!"; // Truy cập đối tượng pEl trong $refs object
+      }
+    }
+  }
+</script> -->
+
+GET THE INPUT VALUE FROM '$refs'
+
+Chúng ta có thể đi sâu hơn vào phần từ HTML được thêm vào $refs object để truy cập bất kỳ thuộc tính nào mà chúng ta muốn
+Ví dụ bên dưới
+<!-- <template>
+  <h1>Example</h1>
+  <p>Start writing inside the input element, and the text will be copied into the last paragraph by the use of the '$refs' object.</p>
+  <input ref="inputEl" @input="getRefs" placeholder="Write something..">
+  <p ref="pEl"></p>
+</template>
+
+<script>
+  export default {
+    methods: {
+      getRefs() { 
+        this.$refs.pEl.innerHTML = this.$refs.inputEl.value;
+      }
+    }
+  };
+</script> -->
+
+'REF' WITH V-FOR
+Với các thẻ HTML được tạo từ v-for, với ref attribute sẽ được thêm vào $refs object như một array
+Ví dụ bên dưới
+<!-- <template>
+  <h1>Example</h1>
+  <p>Click the button to reveal the 3rd list element stored as an array element in the $refs object.</p>
+  <button @click="getValue">Get the 3rd list element</button><br>
+  <ul>
+    <li v-for="x in liTexts" ref="liEl">{{ x }}</li>
+  </ul>
+  <pre>{{ thirdEl }}</pre>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        thirdEl: ' ',
+        liTexts: ['Apple','Banana','Kiwi','Tomato','Lichi']
+      }
+    },
+    methods: {
+      getValue() { 
+        this.thirdEl = this.$refs.liEl[2].innerHTML;
+        console.log("this.$refs.liEl = ",this.$refs.liEl);
+      }
+    }
+  };
+</script> -->
+
+# --------------------------------
