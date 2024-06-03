@@ -449,6 +449,61 @@ Mặc dù một số nội dung được di chuyển ra khỏi component bằng 
 Nhưng mã có liên quan bên trong thành phần đó trong thẻ script và style vẫn hoạt động đối với nội dung được di chuyển.
 Cho dù bạn có dùng scoped ở trong component đó.
 
+# --------------------------------
 
+
+# --------------------------------
+# ------- VUE HTTP REQUESTS -------
+
+DEFINE
+HTTP request là một phần giao tiếp giữa client và server
+Client gửi 1 HTTP request đến server, server sẽ xử lý và trả về 1 HTTP response
+
+THE FETCH METHOD
+Để lấy data từ server trong Vue chúng ta có thể dùng Javascript Fetch() method.
+Khi sử dụng fecth mà chúng ta không chỉ định bất kì một HTTP request method nào thì mặc định nó sẽ là GET.
+Fetch() nhận một URL address là một đối số để nó biết lấy data từ đâu.
+
+Một ví dụ cơ bản sử dụng Fetch method()
+<!-- <template>
+  <div>
+    <button @click="fetchData">Fetch Data</button>
+    <p v-if="data">{{ data }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data: null,
+    };
+  },
+  methods: {
+    async fetchData() {
+      const response = await fetch("file.txt");
+      this.data = await response.text(); // Lấy data text từ file txt
+    }
+  }
+};
+</script> -->
+
+Json() method đọc một response từ HTTP request và trả về một JavaScript Object
+<!-- async fetchData() {
+  const response = await fetch("bigLandMammals.json");
+  this.data = await response.json();
+} -->
+
+DATA FROM API
+HTTP REQUEST IN VUE WITH THE 'AXIOS' LIBRARY
+Là một thư viện của JavaScript cho phép chúng ta thực hiện các yêu cầu HTTP
+Tạo và Chạy nó trong dự án của chúng ta thì dùng: npm install axios
+
+Ví dụ:
+<!-- methods: {
+  async fetchData() {      
+    this.data = await axios.get("https://random-data-api.com/api/v2/users");
+  }
+} -->
 
 # --------------------------------
