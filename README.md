@@ -427,5 +427,28 @@ Chúng ta sử dụng 'max' như một thuộc tính trong KeepAlive để giớ
 <!-- <KeepAlive :max="2"> -->
 Ví dụ chúng ta chuyển đổi quá 2 component là nó sẽ quên state, nếu chúng ta chỉ chuyển qua lại 2 component trong 2 component thì nó vẫn giữ state
 
+# --------------------------------
+
+
+# --------------------------------
+# ------- VUE TELEPORT -------
+DEFINE
+Thẻ Teleport được sử dụng để di chuyển content sang vị trí khác trong cấu trúc DOM
+
+<TELEPORT> AND THE 'TO' ATTRIBUTE
+Chuyển 1 vài conntent đến các vị trí khác trong cấu truc DOM
+Chúng ta sử dụng tag Teleport xung quanh content và thuộc tính 'to' để xác định vị trí di chuyển nó
+VD
+<Teleport to="body">
+  <p></p>
+</Teleport>
+
+SCRIPT AND STYLE Ò TELEPORTED ELEMENTS
+
+Mặc dù một số nội dung được di chuyển ra khỏi component bằng thẻ Teleport.
+Nhưng mã có liên quan bên trong thành phần đó trong thẻ script và style vẫn hoạt động đối với nội dung được di chuyển.
+Cho dù bạn có dùng scoped ở trong component đó.
+
+
 
 # --------------------------------
