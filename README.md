@@ -590,3 +590,440 @@ Ví dụ bên dưới
 </script> -->
 
 # --------------------------------
+
+
+# --------------------------------
+# ------- VUE Lifecycle Hooks -------
+
+DEFINE
+Là các giai đoạn nhất định trong vòng đời của 1 component nơi chúng ta có thể thêm code để thực hiện mọi việc
+
+LIFECYCLE HOOKS
+Mỗi khi 1 component đạt đến một giai đoạn (stage) mới trong vòng đời của nó, 1 function cụ thể sẽ chạy
+Và chúng ta cso thể thêm code vào function đó
+Những function như vậy được gọi là LIFECYCLE HOOKS, vì chúng ta có thể "nối" mã của mình vào giai đoạn (stage) đó.
+
+Đây là tất cả các lifecycle hook mà 1 component có:
+
+- 1. beforeCreate
+- 2. created
+- 3. beforeMount
+- 4. mounted
+- 5. beforeUpdate
+- 6. updated
+- 7. beforeUnmount
+- 8. unmounted
+- 9. errorCaptured
+- 10. renderTracked
+- 11. renderTriggered
+- 12. activated
+- 13. deactivated
+- 14. serverPrefetch 
+
+1. THE 'beforeCreate' HOOK
+  => Xảy ra trước khi component được khởi tạo.
+  => Vì vậy đây là trước khi Vue set up the component's data, computed properties, methods, and event listeners.
+  => Có thể được sử dụng để thiết lập global event listner
+  => Nhưng chúng ta nên TRÁNH cố gắng truy cập các elements thuộc về component LifeCycle Hook beforeCreate
+  => Chẳng hạn như data, watcher and methods, bởi vì chúng chưa được tạo tại stage này.
+  => Ngoài ra sẽ không có ý nghĩa gì khi cố gắng truy cập elements DOM từ beforeCreate lifecycle hook.
+  => Vì chúng không được tạo cho đến khi component được mounted.
+
+  Ví dụ bên dưới:
+  <!-- <template>
+    <h2>Component</h2>
+    <p>This is the component</p>
+    <p id="pResult">{{ text }}</p>
+  </template>
+
+  <script>
+  export default {
+    data() {
+      return {
+        text: '...'
+      }
+    },
+    beforeCreate() {
+      this.text = 'initial text'; // This line has no effect
+      console.log("beforeCreate: The component is not created yet.");
+    }
+  }
+  </script> -->
+
+  <!-- <template>
+    <h1>The 'beforeCreate' Lifecycle Hook</h1>
+    <p>
+      We can see the console.log() message from 'beforeCreate' lifecycle hook,
+      but there is no effect from the text change we try to do to the Vue data property, because the Vue data property is not created yet.
+    </p>
+    <button @click="this.activeComp = !this.activeComp">Add/Remove Component</button>
+    <div>
+      <comp-one v-if="activeComp"></comp-one>
+    </div>
+  </template>
+
+  <script>
+  export default {
+    data() {
+      return {
+        activeComp: false
+      }
+    }
+  }
+  </script> -->
+
+2. THE 'created' HOOK
+  => Xảy ra sau khi component được khởi tạo.
+  => Vì vậy Vue đã set up the component data, computed properties, methods, and event listener
+  => Chúng ta nên TRÁNH cố gắng truy cập các phần tử DOM từ created hook
+  => Vì các phần tử DOM không thể truy cập được cho đến khi component đó được mounted
+  => Created hook có thể được sử dụng để fetch data with HTTP requests
+  => Hoặc thiết lập các giá trị dữ liệu ban đầu
+  => Ví dụ bên dưới là việc sử dụng created hook để thực hiện việc data property TEXT được cấp 1 giá trị ban đầu
+
+  <!-- <template>
+    <h2>Component</h2>
+    <p>This is the component</p>
+    <p id="pResult">{{ text }}</p>
+  </template>
+
+  <script>
+  export default {
+    data() {
+      return {
+        text: '...'
+      }
+    },
+    created() {
+      this.text = 'initial text';
+      console.log("created: The component just got created.");
+    }
+  }
+  </script> -->
+
+  <!-- <template>
+    <h1>The 'created' Lifecycle Hook</h1>
+    <p>We can see the console.log() message from 'created' lifecycle hook, and the text change we try to do to the Vue data property works, because the Vue data property is already created at this stage.</p>
+    <button @click="this.activeComp = !this.activeComp">Add/Remove Component</button>
+    <div>
+      <comp-one v-if="activeComp"></comp-one>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          activeComp: false
+        }
+      }
+    }
+  </script> -->
+
+3. THE 'beforeMount' HOOK
+  => Xảy ra ngay trước khi component is mounted, tức là ngay trước khi thành phần đó được thêm vào DOM
+  => Chúng ta nên TRÁNH cố gắng truy cập các phần tử DOM từ beforeMount hook
+  => Vì các phần tử DOM không thể truy cập được cho đến khi component đó được mounted
+  => Ví dụ thì ở đây cũng tương tự như các hook ở trên.
+
+4. THE 'mounted' HOOK
+  => Ngay sau khi 1 component được thêm vào DOM, mount() method sẽ được gọi và chúng ta có thể thêm mã của mình vào stage (giai đoạn) đó.
+  => Đây là cơ hội lần đầu tiên chúng ta phải làm những việc liên quan đến elements DOM thuộc về component
+  => Kiểu ngay sau khi mount và render DOM ra thì nó thực hiện việc trong mounted hook luôn 
+  => Điều này nó thể dẫn đến DOM chưa tải ra và thực hiện luôn hành động trong mounted hook
+
+  Ví dụ cơ bản nhất cho việc dùng mounted hook
+  <!-- <template>
+    <h2>Form Component</h2>
+    <p>When this component is added to the DOM tree, the mounted() function is called, and we put the cursor inside the input element.</p>
+    <form @submit.prevent>
+      <label>
+        <p>
+          Name: <br>
+          <input type="text" ref="inpName">
+        </p>
+      </label>
+      <label>
+        <p>
+          Age: <br>
+          <input type="number">
+        </p>
+      </label>
+      <button>Submit</button>
+    </form>
+    <p>(This form does not work, it is only here to show the mounted lifecycle hook.)</p>
+  </template>
+
+  <script>
+    export default {
+      mounted() {
+        this.$refs.inpName.focus();
+      }
+    }
+  </script> -->
+
+5. THE 'beforeUpdate' HOOK
+  => Được gọi bất cứ khi nào có thay đổi về data của component
+  => Nhưng trước khi việc cập nhật được hiển thị trên màn hình. 
+  => Việc beforeUpdate hook luôn xảy ra trước update hook.
+  => Điều đặc biệt ở beforeUpdate là chúng ta có thể thực hiện các thay đổi với ứng dụng
+  => Mà không cần kích hoạt bản cập nhật mới, vì vậy chúng ta tránh được vòng lặp vô hạn.
+  => Đó là lý do không thực hiện các thay đổi đối với ứng dụng trong updated hook
+  => Vì với hook đó, một vòng lặp vô hạn sẽ được tạo ra.
+
+  Ví dụ:
+  <!-- <template>
+    <h1>The 'beforeUpdate' Lifecycle Hook</h1>
+    <p>Whenever there is a change in our page, the application is 'updated' and the 'beforeUpdate' hook happens just before that.</p>
+    <p>It is safe to modify our page in the 'beforeUpdate' hook like we do here, but if we modify our page in the 'updated' hook, we will generate an infinite loop.</p>
+    <button @click="this.activeComp = !this.activeComp">Add/Remove Component</button>
+    <div>
+      <comp-one v-if="activeComp"></comp-one>
+    </div>
+    <ol ref="divLog"></ol>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          activeComp: true
+        }
+      },
+      beforeUpdate() {
+        this.$refs.divLog.innerHTML += "<li>beforeUpdate: This happened just before the 'updated' hook.</li>";
+      }
+    }
+  </script> -->
+
+6. THE 'updated' HOOK
+  => Được gọi sau khi component đã cập nhật DOM
+
+  Ví dụ minh họa: 
+  <!-- <template>
+    <h1>The 'updated' Lifecycle Hook</h1>
+    <p>Whenever there is a change in our page, the application is updated and the updated() function is called. In this example we use console.log() in the updated() function that runs when our application is updated.</p>
+    <button @click="this.activeComp = !this.activeComp">Add/Remove Component</button>
+    <div>
+      <comp-one v-if="activeComp"></comp-one>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          activeComp: true
+        }
+      },
+      updated() {
+        console.log("The component is updated!");
+      }
+    }
+  </script> -->
+
+  => Chúng ta phải cẩn thận để không sửa đổi chính trang đó khi updated hook được gọi
+  => Vì khi đó trang sẽ cập nhật lại, tạo ra một vòng lặp vô hạn
+
+  Ví dụ minh họa:
+  <!-- <template>
+    <h1>The 'updated' Lifecycle Hook</h1>
+    <p>Whenever there is a change in our page, the application is updated and the updated() function is called.</p>
+    <p>The first change that causes the updated hook to be called is when we remove the component by clicking the button. When this happens, the update() function adds text to the last paragraph, which in turn updates the page again and again.</p>
+    <button @click="this.activeComp = !this.activeComp">Add/Remove Component</button>
+    <div>
+      <comp-one v-if="activeComp"></comp-one>
+    </div>
+    <div>{{ text }}</div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          activeComp: true,
+          text: "Hello, "
+        }
+      },
+      updated() {
+        this.text += "hi, ";
+      }
+    }
+  </script> -->
+
+7. THE 'beforeUnmount' HOOK
+  => Được gọi ngay trước khi 1 component bị xóa khỏi DOM
+
+  Ví dụ minh họa bên dưới:
+  <!-- <template>
+    <h2>Component</h2>
+    <p ref="pEl">Strawberries!</p>
+  </template>
+    
+  <script>
+  export default {
+    beforeUnmount() {
+      alert("beforeUnmount: The text inside the p-tag is: " + this.$refs.pEl.innerHTML);
+    }
+  }
+  </script> -->
+
+  <!-- <template>
+    <h1>Lifecycle Hooks</h1>
+    <button @click="this.activeComp = !this.activeComp">{{ btnText }}</button>
+    <div>
+      <comp-one v-if="activeComp"></comp-one>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          activeComp: true
+        }
+      },
+      computed: {
+        btnText() {
+          if(this.activeComp) {
+            return 'Remove component'
+          }
+          else {
+            return 'Add component'
+          }
+        }
+      }
+    }
+  </script> -->
+
+
+
+8. THE 'unmounted' HOOK
+  => Được gọi sau khi một component bị xóa khỏi DOM
+  => Được sử dụng để remove event listeners hoặc cancel timers hoặc intervals.
+  => Khi 1 component được ngắt kết nối, unmounted() sẽ được gọi và chúng ta có thể thêm mã của mình vào.
+  => Về cơ bản là ví dụ của nó có thể giống beforeUnmounted hook
+  => Kiểu ngay sau khi xóa DOM trong 1 component thì nó thực hiện việc trong unmounted hook luôn 
+  => Điều này nó thể dẫn đến DOM chưa tải lại và thực hiện luôn hành động trong unmounted hook
+
+9. THE 'errorCaptured' HOOK
+  => Được gọi khi có lỗi xảy ra ở component con, component cháu.
+  => Được sử dụng để xử lý lỗi, ghi lại log hoặc hiển thị lỗi cho người dùng
+  => Thông tin về lỗi cũng có thể được ghi lại dưới dang đối số cho errorCaptured hook
+  => Các đối số đó là: lỗi, thành phần gây ra lỗi, loại nguồn lỗi
+  => Ví dụ lỗi cơ bản khi không có ref tồn tại
+
+
+  <!-- <template>
+    <h2>Component</h2>
+    <p>This is the component</p>
+    <button @click="generateError">Generate Error</button>
+  </template>
+
+  <script>
+    export default {
+      methods: {
+        generateError() {
+          this.$refs.objEl.innerHTML = "hi";
+        }
+      }
+    }
+  </script> -->
+
+  <!-- <template>
+    <h1>The 'errorCaptured' Lifecycle Hook</h1>
+    <p>Whenever there is an error in a child component, the errorCaptured() function is called on the parent.</p>
+    <p>When the button inside the component is clicked, a method will run that tries to do changes to a $refs object that does not exist. This creates an error in the component that triggers the 'errorCaptured' lifecycle hook in the parent, and an alert box is displayed with information about the error.</p>
+    <p>After clicking "Ok" in the alert box you can see the error in the browser console.</p>
+    <div>
+      <comp-one></comp-one>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      errorCaptured(error,compInst,errorInfo) {
+        console.log("error: ", error);
+        console.log("compInst: ", compInst);
+        console.log("errorInfo: ", errorInfo);
+      }
+    }
+  </script> -->
+
+10. THE 'renderTracked' HOOK --- 11. THE 'renderTriggered' HOOK
+
+  ==> A reactive component là component có thể thay đổi
+  ==> A render function là một hàm do Vue compiled (biên soạn) để theo dõi các reactive component.
+  ===> Khi một reactive component thay đổi, render function sẽ được kích hoạt và hiển thị lại ứng dụng ra màn hình.
+
+  => renderTracked hook chạy khi chức năng render được đặt để theo dõi (track), hoặc giám sát (monitor) một reactive component (thành phần phản ứng).
+  => renderTracked hook thường chạy khi reactive component được khởi tạo.
+
+  => renderTriggered hook chạy khi reactive component được theo dõi đó thay đổi và do đó kích hoạt một new render để mà hình được cập nhật những thay đổi mới nhất.
+
+  => Cả hai hook trên được dùng để debugging, và chỉ khả dụng (available) ở chế độ phát triển.
+
+
+12 .THE 'activated' HOOK --- 13. THE 'deactivated' HOOK
+  => Chỉ dành cho khi 1 reactive component được lưu trong cached (bộ nhớ đệm) được thêm vào hoặc xóa, chứ không phải DOM.
+  => KeepAlive được sử dụng trong ví dụ bên dưới để cache (lưu trữ) dynamic component.
+
+  Ví dụ bên dưới:
+  <!-- <template>
+    <h2>Component</h2>
+    <p>Below is a log with every time the 'activated', 'deactivated', 'mounted' or 'unmounted' hooks run.</p>
+    <ol ref="olEl"></ol>
+    <p>You can also see when these hooks run in the console.</p>
+  </template>
+    
+  <script>
+    export default {
+      mounted() {
+        this.logHook("mounted");
+      },
+      unmounted() {
+        this.logHook("unmounted");
+      },
+      activated() {
+        this.logHook("activated");
+      },
+      deactivated() {
+        this.logHook("deactivated");
+      },
+      methods: {
+        logHook(hookName) {
+          console.log(hookName);
+          const liEl = document.createElement("li");
+          liEl.innerHTML = hookName;
+          this.$refs.olEl.appendChild(liEl);
+        }
+      }
+    }
+  </script> -->
+
+  <!-- <template>
+    <h1>The 'activated' and 'deactivated' Lifecycle Hooks</h1>
+    <p>In this example for the 'activated' and 'deactivated' hooks we also see when and if the 'mounted' and 'unmounted' hooks are run.</p>
+    <button @click="this.activeComp = !this.activeComp">Include component</button>
+    <div>
+      <KeepAlive>
+        <comp-one v-if="activeComp"></comp-one>
+      </KeepAlive>
+    </div>
+  </template>
+
+  <script>
+    export default {
+      data() {
+        return {
+          activeComp: false
+        }
+      }
+    }
+  </script> -->
+
+14. THE 'serverPrefetch' HOOK
+  => Chỉ được gọi trong suốt quá trình server-side rendering (SSR).
+  
+
+# --------------------------------

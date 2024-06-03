@@ -28,11 +28,13 @@
   <KeepAlive exclude="CompOne">
     <component :is="activeComp"></component>
   </KeepAlive>
+  <comp-three></comp-three>
 </template>
 
 <script>
   import CompOne from './components/Dynamic/CompOne.vue'
   import CompTwo from './components/Dynamic/CompTwo.vue'
+  import CompThree from './components/Dynamic/CompThree.vue'
   export default {
     data() {
       return {
@@ -85,7 +87,8 @@
     },
     components: {
       'comp-one': CompOne,
-      'comp-two': CompTwo
+      'comp-two': CompTwo,
+      'comp-three': CompThree
     },
     computed: {
       activeComp() {
