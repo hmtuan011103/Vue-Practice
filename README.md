@@ -1124,7 +1124,35 @@ Chúng ta xây dựng SPAs (Single Page Applications) with Vue
 
 INSTALL THE VUE ROUTER LIBRARY
 npm install vue-router@4
+Xong import { createRouter, createWebHistory } from 'vue-router'
+
+File main.js
+import AnimalCollection from './components/Route/AnimalCollection.vue'
+import FoodItems from './components/Route/FoodItems.vue'
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: [
+        { path: '/animals', component: AnimalCollection },
+        { path: '/foods', component: FoodItems }
+    ]
+});
+
+const app = createApp(App);
+app.use(router);
+
+File App.vue
+<!-- <div>
+  <p>Choose what part of this page you want to see:</p>
+  <router-link to="/animals">Animals</router-link>
+  <router-link to="/foods">Food</router-link><br>
+  <router-view></router-view>
+</div> -->
+
+# --------------------------------
 
 
+# --------------------------------
+# ---------- Vue Form Inputs ---------
 
 # --------------------------------
