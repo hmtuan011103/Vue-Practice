@@ -1025,5 +1025,80 @@ Những function như vậy được gọi là LIFECYCLE HOOKS, vì chúng ta c�
 14. THE 'serverPrefetch' HOOK
   => Chỉ được gọi trong suốt quá trình server-side rendering (SSR).
   
+# --------------------------------
+
+# --------------------------------
+# ------- VUE Provide/Inject -------
+
+DEFINE
+Provide/Inject in Vue được sử dụng để cung cấp dữ liệu từ 1 compoenent cho các component khác, đặc biệt trong các dự án lớn
+Provide cung cấp dữ liệu cho các component khác.
+Inject được sử dụng để lấy provied data (dữ liệu được cung cấp)
+Provide/Inject là một cách chia sẻ data thay thế cho việc truyền dữ liệu bằng cách sử dụng props
+
+Trong các dự án lớn, với các component trong các component, có thể khó sử dụng props để cung cấp dữ liệu từ App.vue cho 1 sub-component.
+Vì nó yêu cầu phải xác định props trong mọi thành phần mà dữ liệu đi qua.
+
+=> Nếu sử dụng provide/inject thay vì props, chúng ta chỉ cần xác định dữ liệu được cung cấp ở nơi nó được cung cấp 
+và chúng ta chỉ cần xác định dữ liệu được chèn ở nơi nó được inject
+
+Provide Data
+
+Chúng ta sử dụng provide configuration option để cung cấp dữ liệu cho các component khác
+VD: 
+App.vue
+<!-- <template>
+  <h1>Food</h1>
+  <div @click="this.activeComp = 'food-about'" class="divBtn">About</div>
+  <div @click="this.activeComp = 'food-kinds'" class="divBtn">Kinds</div>
+  <div id="divComp">
+    <component :is="activeComp"></component>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      activeComp: 'food-about',
+      foods: [
+        { name: 'Pizza', imgUrl: '/img_pizza.svg' },
+        { name: 'Apple', imgUrl: '/img_apple.svg' },
+        { name: 'Cake', imgUrl: '/img_cake.svg' },
+        { name: 'Fish', imgUrl: '/img_fish.svg' },
+        { name: 'Rice', imgUrl: '/img_rice.svg' }
+      ]
+    }
+  },
+  provide() {
+    return {
+      foods: this.foods
+    }
+  }
+}
+</script> -->
+
+In the code above, the 'foods' array is now provided so that it is available to be injected in other components in your project
+
+Inject Data
+=> Bây giờ mảng 'foods' được cung cấp bởi provide trong App.vue, chúng ta có thể đưa nó vào component FoodKinds.
+
+Với mảng 'foods' được inject vào 'FoodKinds' component, chúng ta có thể sử dụng dữ liệu từ App.vue hiển thị loại foods khác trong component 'FoodKinds'
+
+<!-- <template>
+    <h2>Different Kinds of Food</h2>
+    <p><mark>In this application, food data is provided in "App.vue", and injected in the "FoodKinds.vue" component so that it can be shown here:</mark></p>
+    <div v-for="x in foods">
+        <img :src="x.imgUrl">
+        <p class="pName">{{ x.name }}</p>
+    </div>
+</template>
+
+<script>
+  export default {
+    inject: ['foods']
+  }
+</script> -->
+
 
 # --------------------------------
