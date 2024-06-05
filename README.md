@@ -1100,5 +1100,31 @@ Với mảng 'foods' được inject vào 'FoodKinds' component, chúng ta có t
   }
 </script> -->
 
+# --------------------------------
+
+
+# --------------------------------
+# ---------- VUE Routing ---------
+
+DEFINE
+Được sử dụng để điều hướng (navigate) trong ứng dụng Vue
+Và nó xảy ra ở phía máy khách, mà không cần tải lại toàn bộ trang
+Điều này mang lại trải nghiệm người dùng nhanh hơn.
+
+Là một cách để điều hướng, giống như cách chúng ta sử dung dynamic components trước đó
+Với routing chúng ta có thể sử dụng URL address để hướng bất kì ai đó đến một địa điểm cụ thể trong ứng dụng Vue của mình.
+
+
+NAVIGATE USING A DYNAMIC COMPONENT
+
+FROM DYNAMIC COMPONENT TO ROUTING
+Chúng ta xây dựng SPAs (Single Page Applications) with Vue
+=> Điều này có nghĩa là ứng dụng của chúng ta chỉ chứa 1 file *.html
+=> Và có nghĩa là chúng ta không thể hướng con người đến file *.html khác để hiển thị nội dung khác trong page của chúng ta
+
+INSTALL THE VUE ROUTER LIBRARY
+npm install vue-router@4
+
+
 
 # --------------------------------

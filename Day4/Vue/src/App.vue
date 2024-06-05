@@ -1,4 +1,10 @@
 <template>
+   <div>
+    <p>Choose what part of this page you want to see:</p>
+    <router-link to="/animals">Animals</router-link>
+    <router-link to="/foods">Food</router-link><br>
+    <router-view></router-view>
+  </div>
   <h1>Hello World!</h1>
   <h1>{{ message }}</h1>
 
@@ -38,6 +44,7 @@
   export default {
     data() {
       return {
+        activeComp: '',
         toggleValue: true,
         newItem: '',
         items: ['Buy apples','Make pizza','Mow the lawn'],
@@ -105,5 +112,17 @@
     margin: 10px;
     padding: 10px;
     background-color: lightgreen;
+  }
+  a {
+    display: inline-block;
+    background-color: black;
+    border: solid 1px black;
+    color: white;
+    padding: 5px;
+    margin: 10px;
+  }
+  a:hover,
+  a.router-link-active {
+    background-color: rgb(110, 79, 13);
   }
 </style>
