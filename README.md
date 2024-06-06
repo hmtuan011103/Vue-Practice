@@ -1471,3 +1471,231 @@ Ví dụ bên dưới:
 </style> -->
 
 # --------------------------------
+
+
+# --------------------------------
+# ------- Vue Animations With v-for ------
+
+DEFINE
+
+<TransitionGroup></TransitionGroup> component được sử dụng để animate cho nhiều phần tử được thêm vào page của chúng ta với v-for
+<TransitionGroup></TransitionGroup> component được sử dụng xunh quanh các element được tạo bằng v-for
+Để cung cấp cho các phần từ này các hình ảnh động riêng lẻ khi chúng được thêm hoặc xóa
+Tags được tạo bằng v-for bên trong <TransitionGroup></TransitionGroup> component phải được xác định là key attribute.
+The <TransitionGroup></TransitionGroup> component chỉ được hiển thị dưới dạng thẻ HTML
+Nếu chúng tôi xác định nó là một thẻ cụ thể bằng cách dùng tag prop
+
+Ví dụ:
+<!-- <TransitionGroup tag="ol">
+  <li v-for="x in products" :key="x">
+    {{ x }}
+  </li>
+</TransitionGroup> -->
+
+Kết quả:
+<!-- <ol>
+  <li>Apple</li>
+  <li>Pizza</li>
+  <li>Rice</li>
+</ol> -->
+
+Sau đó chúng ta có thể thêm css vào các class có sẵn được tạo với TransitionGroup kiểu như v-enter-to, v-enter-from.
+
+
+Một ví dụ đơn giản cho dễ hiểu:
+<!-- <template>
+  <h3>The &lt;TransitionGroup&gt; Component</h3>
+  <p>New products are given animations using the &lt;TransitionGroup&gt; component.</p>
+  <input type="text" v-model="inpName"> 
+  <button @click="addEl">Add</button>
+  <TransitionGroup tag="ol">
+    <li v-for="x in products" :key="x">
+      {{ x }}
+    </li>
+  </TransitionGroup>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        products: ['Apple','Pizza','Rice'],
+        inpName: ''
+      }
+    },
+    methods: {
+      addEl() {
+        const el = this.inpName;
+        this.products.push(el);
+        this.inpName = null;
+      }
+    }
+  }
+</script>
+
+<style>
+  .v-enter-from {
+    opacity: 0;
+    rotate: 180deg;
+  }
+  .v-enter-to {
+    opacity: 1;
+    rotate: 0deg;
+  }
+  .v-enter-active {
+    transition: all 0.7s;
+  }
+</style>  -->
+
+
+ADD AND REMOVE ELEMENTS
+Khi loại bỏ các phần tử ở giữa các element khác, các phần tử khác sẽ rơi vào vị trí của phần tử bị loại bỏ
+Để tạo hiệu ứng cho các mục còn lại trong danh sách được sắp xếp đúng vị trí khi một phần từ bị xóa
+Chúng ta sẽ sử dụng v-move class được tạo tự động
+
+Lưu ý: Để tạo animate cho v-mode class chúng ta có để đặt position: absolute; vào v-leave-active
+Ví dụ:
+<!-- .v-move {
+  transition: all 0.7s;
+}
+.v-leave-active { position: absolute; } -->
+
+Ví dụ hay về việc đó:
+<!-- <template>
+  <h3>The &lt;TransitionGroup&gt; Component</h3>
+  <p>Items inside the &lt;TransitionGroup&gt; component are animated when they are created or removed.</p>
+  <button @click="addDie">Roll</button>
+  <button @click="addDie10">Roll 10 dice</button>
+  <button @click="dice.sort(compareFunc)">Sort</button>
+  <button @click="dice.sort(shuffleFunc)">Shuffle</button><br>
+  <TransitionGroup>
+    <div 
+    v-for="x in dice" 
+    :key="x.keyNmbr" 
+    class="diceDiv" 
+    :style="{ backgroundColor: 'hsl('+x.dieNmbr*60+',85%,85%)' }"
+    @click="removeDie(x.keyNmbr)">
+      {{ x.dieNmbr }}
+    </div>
+  </TransitionGroup>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        dice: [],
+        keyNumber: 0
+      }
+    },
+    methods: {
+      addDie() {
+        const newDie = {
+          dieNmbr: Math.ceil(Math.random()*6),
+          keyNmbr: this.keyNumber
+        };
+        this.dice.splice(Math.floor(Math.random()*this.dice.length),0,newDie);
+        this.keyNumber++;
+      },
+      addDie10() {
+        for(let i=0; i<10; i++) {
+          this.addDie();
+        }
+      },
+      compareFunc(a,b){
+        return a.dieNmbr - b.dieNmbr;
+      },
+      shuffleFunc(a,b){
+        return Math.random()-0.5;
+      },
+      removeDie(key) {
+        const pos = this.dice.map(e => e.keyNmbr).indexOf(key);
+        this.dice.splice(pos, 1);
+      }
+    },
+    mounted() {
+      this.addDie10();
+    }
+  }
+</script>
+
+<style>
+.v-enter-from {
+  opacity: 0;
+  scale: 0;
+  rotate: 360deg;
+}
+.v-enter-to {
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+}
+.v-enter-active,
+.v-leave-active,
+.v-move {
+  transition: all 0.7s;
+}
+.v-leave-active { position: absolute; }
+.v-leave-from { opacity: 1; }
+.v-leave-to { opacity: 0; }
+.diceDiv {
+  margin: 10px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  border: solid black 1px;
+  border-radius: 5px;
+  display: inline-block;
+}
+.diceDiv:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#app {
+  position: relative;
+}
+</style>     -->
+
+# --------------------------------
+
+
+# --------------------------------
+# ------- Build Your Project -----
+
+When a Vue project is finished, it should move from being in "development mode" into "build" mode.
+The build command compiles our Vue project into.html, .js and .css files that are optimized to tun directly in the brower.
+We build our Vue project to create files on a server for others to access.
+
+To 'Build' The Web Page: Để xây dụng Trang Web.
+
+Cho đến nay chúng ta đã chạy dự án ở development mode, nghĩa là công cụ xây dụng Vite đang chạy 1 development server.
+Khi bạn thực hiện các thay đổi trong quá trình development và save chúng. Vite sẽ update ngay lập tức.
+Điều này đòi hỏi rất nhiều tài nguyên từ máy tính.
+
+Bước build diễn ra sau giai đoạn development, khi trang đã sẵn sàng ra mắt cho cộng đồng.
+Sau đó, chúng tôi phải xây dựng dự án của mình thành các tệp mà trình duyệt hiểu được mà không cần chạy vite ở development mode.
+Bước build được thực hiện để giảm thiểu việc sử dụng tài nguyên server và cải thiện hiệu suất.
+
+1. To Build your Vue application:
+
+npm run build
+
+2. When your project is built, Vite creates a folder 'dist' with all the files needed to run your project on public server
+With file the browser unerstands .html, .css, .js thay vì file .vue chúng ta sử dụng trong quá trình development
+
+3. To see your build project in the brower, use the commando:
+npm run preview
+-> This commando should open a brower window that displays the build project from the 'dist' folder.
+
+
+# --------------------------------
+
+
+# --------------------------------
+# ------- Build Your Project -----
+
+
+# --------------------------------
+
