@@ -1156,3 +1156,318 @@ File App.vue
 # ---------- Vue Form Inputs ---------
 
 # --------------------------------
+
+
+# --------------------------------
+# ---------- Vue Animations ---------
+
+DEFINE
+Hỗ trợ có component Transition cung cấp sẵn các class
+
+Với 1 element trong component Transition được thêm vào, chúng ta có thể sử dụng 3 class sau để tạo animate Transition
+  - v-enter-from
+  - v-enter-active
+  - v-enter-to
+
+Với 1 element được xóa trong component Transition, chúng ta có thể sử dụng 3 class sau:
+  - v-leave-from
+  - v-leave-active
+  - v-leave-to
+
+THE TRANSITION 'name' PROP
+Trong trường hợp bạn có một số component Transition, nhưng bạn muốn ít nhất một trong các component Transition có animation khác nhau.
+Bạn cần có tên khác cho các component Transition để phân biệt chúng
+
+Chúng ta có thể chọn tên của Transition component with name prop.
+Và điều đó cũng thay đổi tên của các class, để chúng ta có thể đặt các quy tắc hoạt ảnh CSS khác nhau cho component đó
+VD: 
+<!-- <Transition name="swirl"> -->
+If the transition name prop value is set to 'swirl', the automatically available classes will now start with 'swirl-' instead of 'v-'
+  - swirl-enter-from
+  - swirl-enter-active
+  - swirl-enter-to
+  - swirl-leave-from
+  - swirl-leave-active
+  - swirl-leave-to
+
+
+JAVASCRIPT TRANSITION HOOKS
+Mỗi class transition như vừa đề cập đều tương ứng với 1 event mà chúng ta có thể nối vào để chạy 1 mã script
+
+v-enter-from	   before-enter: Trước khi thêm
+v-enter-active	 enter: Thêm
+v-enter-to	     after-enter: Sau khi thêm
+                 enter-cancelled: Hủy thêm
+v-leave-from	   before-leave: Trước khi xóa
+v-leave-active	 leave: Xóa
+v-leave-to	     after-leave: Sau khi xóa
+                 leave-cancelled (v-show only): Hủy xóa (chỉ hoạt động với v-show)
+
+Ví dụ:
+<!-- <template>
+  <h1>JavaScript Transition Hooks</h1>
+  <p>This code hooks into "after-enter" so that after the initial animation is done, a method runs that displays a red div.</p>
+  <button @click="pVisible=true">Create p-tag!</button><br>
+  <Transition @after-enter="onAfterEnter">
+    <p v-show="pVisible" id="p1">Hello World!</p>
+  </Transition>
+  <br>
+  <div v-show="divVisible">This appears after the "enter-active" phase of the transition.</div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        pVisible: false,
+        divVisible: false
+      }
+    },
+    methods: {
+      onAfterEnter() {
+        this.divVisible = true;
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .v-enter-active {
+    animation: swirlAdded 1s;
+  }
+  @keyframes swirlAdded {
+    from {
+      opacity: 0;
+      rotate: 0;
+      scale: 0.1;
+    }
+    to {
+      opacity: 1;
+      rotate: 360deg;
+      scale: 1;
+    }
+  }
+  #p1, div {
+    display: inline-block;
+    padding: 10px;
+    border: dashed black 1px;
+  }
+  #p1 {
+    background-color: lightgreen;
+  }
+  div {
+    background-color: lightcoral;
+  }
+</style> -->
+
+THE 'appear' PROP
+Nếu bạn có 1 element, bạn muốn animate khi page loads, chúng ta cần sử dụng appear prop trên Transition component
+<!-- <Transition appear>
+  ...
+</Transition> -->
+
+In this example, the appear prop starts an animation when the page load for the first time
+
+TRANSITION BETWEEN ELEMENTS
+Transition component cũng có thể dược sử dụng để chuyển đổi giữa một số phần tử.
+Miễn là chúng ta đảm bảo rằng mỗi lần chỉ có 1 phần tử được hiển thị bằng cách sử dụng v-if, v-else-if
+Ví dụ:
+<!-- <template>
+  <h1>Transition Between Elements</h1>
+  <p>Click the button to get a new image.</p>
+  <p>The new image is added before the previous is removed. We will fix this in the next example with mode="out-in".</p>
+  <button @click="newImg">Next image</button><br>
+  <Transition>
+    <img src="/img_pizza.svg" v-if="imgActive === 'pizza'">
+    <img src="/img_apple.svg" v-else-if="imgActive === 'apple'">
+    <img src="/img_cake.svg" v-else-if="imgActive === 'cake'">
+    <img src="/img_fish.svg" v-else-if="imgActive === 'fish'">
+    <img src="/img_rice.svg" v-else-if="imgActive === 'rice'">
+  </Transition>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      imgActive: 'pizza',
+      imgs: ['pizza', 'apple', 'cake', 'fish', 'rice'],
+      indexNbr: 0
+    }
+  },
+  methods: {
+    newImg() {
+      this.indexNbr++;
+      if(this.indexNbr >= this.imgs.length) {
+        this.indexNbr = 0;
+      }
+      this.imgActive = this.imgs[this.indexNbr];
+    }
+  }
+}
+</script>
+
+<style>
+  .v-enter-active {
+    animation: swirlAdded 1s;
+  }
+  .v-leave-active {
+    animation: swirlAdded 1s reverse;
+  }
+  @keyframes swirlAdded {
+    from {
+      opacity: 0;
+      rotate: 0;
+      scale: 0.1;
+    }
+    to {
+      opacity: 1;
+      rotate: 360deg;
+      scale: 1;
+    }
+  }
+  img {
+    width: 100px;
+    margin: 20px;
+  }
+  img:hover {
+    cursor: pointer;
+  }
+</style> -->
+
+mode="out-in"
+Chúng ta sử dụng mode="out-in" trên component Transition để việc loại bỏ một phần tử được hoàn tất trước khi phần tử tiếp theo được thêm vào.
+Ví dụ:
+<!-- <template>
+  <h1>mode="out-in"</h1>
+  <p>Click the button to get a new image.</p>
+  <p>With mode="out-in", the next image is not added until the current image is removed. Another difference from the previous example, is that here we use computed prop instead of a method.</p>
+  <button @click="indexNbr++">Next image</button><br>
+  <Transition mode="out-in">
+    <img src="/img_pizza.svg" v-if="imgActive === 'pizza'">
+    <img src="/img_apple.svg" v-else-if="imgActive === 'apple'">
+    <img src="/img_cake.svg" v-else-if="imgActive === 'cake'">
+    <img src="/img_fish.svg" v-else-if="imgActive === 'fish'">
+    <img src="/img_rice.svg" v-else-if="imgActive === 'rice'">
+  </Transition>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      imgs: ['pizza', 'apple', 'cake', 'fish', 'rice'],
+      indexNbr: 0
+    }
+  },
+  computed: {
+    imgActive() {
+      if(this.indexNbr >= this.imgs.length) {
+        this.indexNbr = 0;
+      }
+      return this.imgs[this.indexNbr];
+    }
+  }
+}
+</script>
+
+<style>
+  .v-enter-active {
+    animation: swirlAdded 0.7s;
+  }
+  .v-leave-active {
+    animation: swirlAdded 0.7s reverse;
+  }
+  @keyframes swirlAdded {
+    from {
+      opacity: 0;
+      rotate: 0;
+      scale: 0.1;
+    }
+    to {
+      opacity: 1;
+      rotate: 360deg;
+      scale: 1;
+    }
+  }
+  img {
+    width: 100px;
+    margin: 20px;
+  }
+  img:hover {
+    cursor: pointer;
+  }
+</style> -->
+
+TRANSITION WITH DYNAMIC COMPONENTS
+
+Chúng ta có thể sử dụng Transition component to animate switching between dynamic components:
+Ví dụ bên dưới:
+<!-- <template>
+  <h1>Transition with Dynamic Components</h1>
+  <p>The Transition component wraps around the dynamic component so that the switching can be animated.</p>
+  <button @click="toggleValue = !toggleValue">Switch component</button>
+  <Transition mode="out-in">
+    <component :is="activeComp"></component>
+  </Transition>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        toggleValue: true
+      }
+    },
+    computed: {
+      activeComp() {
+        if(this.toggleValue) {
+          return 'comp-one'
+        }
+        else {
+          return 'comp-two'
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  .v-enter-active {
+    animation: slideIn 0.5s;
+  }
+  @keyframes slideIn {
+    from {
+      translate: -200px 0;
+      opacity: 0;
+    }
+    to {
+      translate: 0 0;
+      opacity: 1;
+    }
+  }
+  .v-leave-active {
+    animation: slideOut 0.5s;
+  }
+  @keyframes slideOut {
+    from {
+      translate: 0 0;
+      opacity: 1;
+    }
+    to {
+      translate: 200px 0;
+      opacity: 0;
+    }
+  }
+  #app {
+    width: 350px;
+    margin: 10px;
+  }
+  #app > div {
+    border: solid black 2px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+</style> -->
+
+# --------------------------------
