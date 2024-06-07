@@ -409,6 +409,11 @@ THE COMPONENT TAG AND THE 'IS' ATTRIBUTE
 
 <!-- <component :is="activeComp"></component> -->
 
+Thuộc tính is còn có thể được sử dụng trong các thẻ để thay thế nội dung của thẻ đó bằng 1 component khác mà không cần v-bind hay shorthand của nó là (:)
+<!-- <img is="vue:child-comp" /> --> 
+child-comp là component thay thế nội dung thẻ img
+
+
 <KeepAlive>
 Nếu có bất kì thao tác nào ở các component khi ta chuyển đổi lại giữa các component nó sẽ bị reset lại ban đầu
 Để giữ nguyên state (trạng thái), các thông tin đầu vào trước đó, khi bạn quay lại 1 component
