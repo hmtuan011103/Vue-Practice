@@ -1694,8 +1694,108 @@ npm run preview
 
 
 # --------------------------------
-# ------- Build Your Project -----
+# ------- VUE COMPOSITION API -----
 
+DEFINE
+Là một cách khác để viết ứng dụng Vue vào API options được sử dụng ở nơi khác trong hướng dẫn này
+Trong Composition API, chúng ta có thể viết mã thoải mái hơn.
+Nhưng nó đòi hỏi sự hiểu biết sâu sắc hơn và được coi là ít thân thiện hơn với người mới bắt đầu.
+
+THE COMPOSITION API
+Với Composition Api, logic được viết bằng cách sử dụng các hàm Vue đã import
+Thay vì sử dụng Vue instance, phiên bản Vue mà chúng ta đã quen từ API options
+Đây là cách composition Api có thể được sử dụng để viết ứng dụng Vue giúp giảm số lượng máy đánh chữ tron bộ lưu trữ bằng một nút.
+Ví dụ:
+
+<!-- <template>
+  <h1>Example</h1>
+  <img src="/img_typewriter.jpeg" alt="Typewriter">
+  <p>Typewriters left in storage: {{ typeWriters }}</p>
+  <button @click="remove">Remove one</button>
+  <p style="font-style: italic;">"{{ storageComment }}"</p>
+</template>
+
+<script setup>
+  import { ref, computed } from 'vue'
+
+  const typeWriters = ref(10);
+
+  function remove(){
+    if(typeWriters.value>0){
+      typeWriters.value--;
+    }
+  }
+
+  const storageComment = computed(
+    function(){
+      if(typeWriters.value > 5) {
+        return "Many left"
+      }
+      else if(typeWriters.value > 0){
+        return "Very few left"
+      }
+      else {
+        return "No typewriters left"
+      }
+    }
+  )
+</script>     -->
+
+Ở chỗ setup attribute trong script giúp việc sử dụng composition API dễ dàng hơn. 
+Bằng cách sử dụng setup attribute, các biến và các hàm có thể được sử dụng trực tiếp bên trong <template></template>
+
+ref và computed phải được import trước khi sử dụng.
+Trong Option API chúng tôi không cần import bất cứ thứ gì để khai báo reactive variables hoặc computed properties
+
+ref được sử dụng để khai báo thuộc tính 'typewrites' là reactive với 10 là giá trị ban đầu.
+Để khai báo typewrites property là reactive.
+=> Có nghĩa là {{ typewrites }} trong template sẽ được tự động hiển thị lại để hiển thị giá trị được cập nhật khi giá trị typewrites thay đổi
+
+Với Options API, các data property sẽ trở nên reactive nếu cần khi ứng dụng được xây dựng, chúng không cần phải khai báo rõ ràng là reactive
+
+Hàm remove() được khai báo trong Composition API sẽ được khai báo theo property methods nếu được viết trong Option API
+Computed property storageComment được khai báo trong Composition API sẽ được khai báo theo property computed nếu được viết trong Option API
+
+THE OPTIONS API
+Ví dụ trong Compostion API trên được viết lại dưới options API
+
+<!-- <template>
+  <h1>Example</h1>
+  <img src="/img_typewriter.jpeg" alt="Typewriter">
+  <p>Typewriters left in storage: {{ typeWriters }}</p>
+  <button @click="remove">Remove one</button>
+  <p style="font-style: italic;">"{{ storageComment }}"</p>
+</template>
+
+<script>
+export default {
+  data() { 
+    return {
+      typeWriters: 10
+    };
+  },
+  methods: {
+    remove(){
+      if(this.typeWriters>0){
+        this.typeWriters--;
+      }
+    }
+  },
+  computed: {
+    storageComment(){
+      if(this.typeWriters > 5) {
+        return "Many left"
+      }
+      else if(this.typeWriters > 0){
+        return "Very few left"
+      }
+      else {
+        return "No typewriters left"
+      }
+    }
+  }
+}
+</script> -->
 
 # --------------------------------
 
